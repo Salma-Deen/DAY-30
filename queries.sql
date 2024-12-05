@@ -1,30 +1,53 @@
 CREATE TABLE IF NOT EXISTS user(
   UserID INTEGER PRIMARY KEY,
-  Name VARCHAR(25),
-  Email VARCHAR(25),
+  Name VARCHAR(25) NOT NULL,
+  Email VARCHAR(25) NOT NULL,
   CreatedAT TIMESTAMP
   );
 CREATE TABLE IF NOT EXISTS mentor
   (mentorID INTEGER PRIMARY KEY,
-  Name VARCHAR(25),
-  Email VARCHAR(25),
+  Name VARCHAR(25) NOT NULL,
+  Email VARCHAR(25) NOT NULL,
   CreatedAT TIMESTAMP
   );
 CREATE TABLE IF NOT EXISTS classes (
   classID INTEGER PRIMARY KEY,
-  Title VARCHAR(40),
-  mentorID INTEGER,
+  Title VARCHAR(40) NOT NULL,
+  mentorID INTEGER NOT NULL,
   Timing DATETIME,
-  isEnded BOOLEAN,
+  isEnded BOOLEAN NOT NULL,
   FOREIGN KEY (mentorID) REFERENCES mentor(mentorID)
 );
 CREATE TABLE IF NOT EXISTS task(
   taskID INTEGER PRIMARY KEY,
-  Title VARCHAR(40),
-  UserID INTEGER,
+  Title VARCHAR(40) NOT NULL,
+  UserID INTEGER NOT NULL,
   Tag VARCHAR(30),
   FOREIGN KEY (UserID) REFERENCES user(UserID)
 );
+CREATE TABLE IF NOT EXISTS events(
+  eventID INTEGER PRIMARY KEY,
+  Title  VARCHAR(100)NOT NULL,
+  UserID INTEGER NOT NULL,
+  Description TEXT NOT NULL,
+  Type ENUM('HACKATHON','PLACEMENT SESSION') NOT NULL,  //An ENUM in SQL is a data type that restricts a column to accept only a predefined set of string values.
+  EventDate DATETIME,
+  FOREIGN KEY (UserID) REFERENCES user(UserID)
+);
+CREATE TABLE IF NOT EXISTS queries(
+  queryID INTEGER PRIMARY KEY,
+  UserID INTEGER NOT NULL,
+  Title  VARCHAR(40)NOT NULL,
+  Description TEXT NOT NULL,
+  Tag VARCHAR(40),
+  Date DATE,
+  language VARCHAR(30),
+  Time TIME,
+  FOREIGN KEY (UserID) REFERENCES user(UserID)
+);
+
+
+
 
   
 
